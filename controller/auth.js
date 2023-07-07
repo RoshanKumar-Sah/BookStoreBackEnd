@@ -49,7 +49,20 @@ next(err)
 
 }
 
+
+const getUser = (req, res, next)=>{
+    try{
+// console.log(req.user);
+
+res.send(req.user)
+
+    }catch(err){
+        next(err)
+    }
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    getUser
 }

@@ -8,10 +8,10 @@ const validateSchema = (schema) => {
        let errors =  error.details.map(er =>{
             return {
                 params: er.context.key,
-                value: er.message
+                msg: er.message
             }
         })
-        res.send(errors);
+        return res.status(400).send({ msg: "Bad Request", errors })
       }else{
         next()
       }

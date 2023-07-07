@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
             temp.push(obj)
         })
 
-        console.log(temp);
+        // console.log(temp);
         errors = temp
     }
 
