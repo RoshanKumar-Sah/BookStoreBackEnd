@@ -1,10 +1,38 @@
 const Cart = require("../model/Cart")
-
+const mongoose = require("mongoose")
 
 const fetchCart = async (req, res, next) => {
 
     try {
-        let cart = await Cart.find({ userId: req.user._id });
+        let userId = new mongoose.Types.ObjectId(req.user._id)
+        // let cart = await Cart.find({ userId: req.user._id });
+
+        let cart = await Cart.aggregate([
+            { $match: { userId: userId } },
+            {
+                $lookup: {
+                    from: "books",
+                    localField: "bookId",
+                    foreignField: "_id",
+                    as: "bookDetails"
+                }
+            },
+            {
+                $unwind: "$bookDetails"
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    userId: "$userId",
+                    quantity: "$quantity",
+                    bookTitle: "$bookDetails.title",
+                    bookId: "$bookDetails._id",
+                    bookAuthor: "$bookDetails.author",
+                    bookStatus: "$bookDetails.status"
+                }
+            }
+        ])
+
         return res.send(cart)
     } catch (err) {
         // console.log(err);

@@ -1,11 +1,14 @@
 const express = require("express")
 const app = express()
+const cors = require('cors')
+
+
 
 require("./config/database")
 require('dotenv').config()
 
 
-
+app.use(cors())
 app.use(express.json())
 const fileUpload = require("express-fileupload")
 
@@ -60,7 +63,7 @@ app.use((err, req, res, next) => {
         errors = temp
     }
 
-    if(err.name == "CastError"){
+    if (err.name == "CastError") {
         status = 400
         message = "Bad Request"
     }
