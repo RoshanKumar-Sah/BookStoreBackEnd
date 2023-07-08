@@ -1,4 +1,4 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/Book')
+mongoose.connect('mongodb+srv://mail4sahrs:ZS12sNTHQjm2ctbr@bookstore.yvtyfxl.mongodb.net/BookStore?retryWrites=true&w=majority')
   .then(() => console.log('Connected!'));
