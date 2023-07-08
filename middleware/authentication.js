@@ -29,7 +29,7 @@ const authentication = (key) => {
 
         }
 
-        res.status(401).send({ msg: "unauthenticated" })
+      return  res.status(401).send({ msg: "unauthenticated" })
 
 
     }

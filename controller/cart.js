@@ -28,7 +28,8 @@ const fetchCart = async (req, res, next) => {
                     bookTitle: "$bookDetails.title",
                     bookId: "$bookDetails._id",
                     bookAuthor: "$bookDetails.author",
-                    bookStatus: "$bookDetails.status"
+                    bookStatus: "$bookDetails.status",
+                    bookPrice: "$bookDetails.price"
                 }
             }
         ])
@@ -68,7 +69,7 @@ const updateCart = async (req, res, next) => {
             let cart = await Cart.findByIdAndUpdate(req.params.id, { ...pre[0], quantity: req.body.quantity }, { new: true });
             return res.send(cart)
         }
-        return res.status(204).end()
+        return res.status(404).send({msg: "resource not found"})
     } catch (err) {
         console.log(err);
         next(err);
